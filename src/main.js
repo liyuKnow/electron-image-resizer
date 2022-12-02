@@ -1,17 +1,17 @@
 const path = require("path");
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, Menu } = require("electron");
 
-// const isDev = process.env.NODE_ENV !== "development";
+// const isDev = process.env.NODE_ENV !== 'production';
 const isDev = false;
+// const isDev = false;
 
-console.log(isDev);
 const isMac = process.platform === "darwin";
 
 function CreateMainWindow() {
   const mainWindow = new BrowserWindow({
     title: "Image Resize",
-    width: 500,
-    height: 600,
+    minWidth: isDev ? 1000 : 500,
+    minHeight: 600,
     webPreferences: {
       preload: path.join(__dirname, "./preload/preload.js"),
     },
@@ -26,6 +26,9 @@ function CreateMainWindow() {
 
 app.whenReady().then(() => {
   CreateMainWindow();
+  // Implement custom menu
+  const mainMenu = Menu.buildFromTemplate(customMenuTemplate);
+  Menu.setApplicationMenu(mainMenu);
 
   app.on("active", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
@@ -39,3 +42,25 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
+
+
+
+// & TEMPO MENU TEMPLATE
+const customMenuTemplate = [
+  {
+    label: "File",
+    submenu: [
+      {
+        label: "Quit",
+        click: () => {
+          app.quit()
+        },
+        accelerator: "CmdorCtrl+W"
+      }
+    ]
+  },
+  // ROLES
+  {
+    role: 'editMenu'
+  }
+]
