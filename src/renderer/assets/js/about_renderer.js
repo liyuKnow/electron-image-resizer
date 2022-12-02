@@ -1,0 +1,1 @@
+console.log("And I am About renderer js");
