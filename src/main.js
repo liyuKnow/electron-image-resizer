@@ -60,42 +60,48 @@ app.on("window-all-closed", () => {
   }
 });
 
-
-
 // & TEMPO MENU TEMPLATE
 const customMenuTemplate = [
-  ...isMac ? [{
-    label: app.name,
-    submenu: [
-      {
-        label: "About",
-        click: CreateAboutWindow
-      }
-    ]
-  }] : [
-
-  ],
+  ...(isMac
+    ? [
+        {
+          label: app.name,
+          submenu: [
+            {
+              label: "About",
+              click: CreateAboutWindow,
+            },
+          ],
+        },
+      ]
+    : []),
   {
     label: "File",
     submenu: [
       {
         label: "Quit",
         click: () => {
-          app.quit()
+          app.quit();
         },
-        accelerator: "CmdorCtrl+W"
-      }
-    ]
+        accelerator: "CmdorCtrl+W",
+      },
+    ],
   },
   // ROLES
   {
-    role: 'editMenu'
+    role: "toggleDevTools",
   },
-  ...!isMac ? [{
-    label: 'Help',
-    submenu: [{
-      label: "About",
-      click: CreateAboutWindow
-    }]
-  }] : []
-]
+  ...(!isMac
+    ? [
+        {
+          label: "Help",
+          submenu: [
+            {
+              label: "About",
+              click: CreateAboutWindow,
+            },
+          ],
+        },
+      ]
+    : []),
+];
