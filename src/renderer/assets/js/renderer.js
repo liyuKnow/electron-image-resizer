@@ -5,6 +5,14 @@ const filename = document.querySelector("#filename");
 const heightInput = document.querySelector("#height");
 const widthInput = document.querySelector("#width");
 
+// console.log(`versions.node() => ${versions.node()}`);
+// console.log(`versions.electron() => ${versions.electron()}`);
+// console.log(`versions.node() => ${versions.node()}`);
+// console.log(`versions.platform() => ${versions.platform()}`);
+
+// console.log(`os.homedir() => ${os.homedir()}`);
+// console.log(`os.cwd() => ${os.cwd()}`);
+
 function loadImage(e) {
   const file = e.target.files[0];
 

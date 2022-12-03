@@ -34,6 +34,8 @@ function CreateAboutWindow() {
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
+      contextIsolation: true,
+      nodeIntegration: true,
       preload: path.join(__dirname, "./preload/about_preload.js"),
     },
   });
@@ -64,16 +66,16 @@ app.on("window-all-closed", () => {
 const customMenuTemplate = [
   ...(isMac
     ? [
-        {
-          label: app.name,
-          submenu: [
-            {
-              label: "About",
-              click: CreateAboutWindow,
-            },
-          ],
-        },
-      ]
+      {
+        label: app.name,
+        submenu: [
+          {
+            label: "About",
+            click: CreateAboutWindow,
+          },
+        ],
+      },
+    ]
     : []),
   {
     label: "File",
@@ -93,15 +95,15 @@ const customMenuTemplate = [
   },
   ...(!isMac
     ? [
-        {
-          label: "Help",
-          submenu: [
-            {
-              label: "About",
-              click: CreateAboutWindow,
-            },
-          ],
-        },
-      ]
+      {
+        label: "Help",
+        submenu: [
+          {
+            label: "About",
+            click: CreateAboutWindow,
+          },
+        ],
+      },
+    ]
     : []),
 ];
