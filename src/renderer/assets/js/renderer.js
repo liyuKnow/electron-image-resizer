@@ -1,3 +1,11 @@
+const minimize_btn = document.querySelector("#minimize");
+
+function minimizeWindow() {
+  console.log("minimize this!");
+}
+
+minimize_btn.addEventListener("click", minimizeWindow);
+
 const form = document.querySelector("#img-form");
 const img = document.querySelector("#img");
 const outputPath = document.querySelector("#output-path");

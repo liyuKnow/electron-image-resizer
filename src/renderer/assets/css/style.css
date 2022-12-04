@@ -1,3 +1,52 @@
+.navbar {
+  width: 100vw;
+  height: 30px;
+  background-color: aquamarine;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  -webkit-app-region: drag;
+}
+
+.logo {
+}
+
+ul {
+  height: 100%;
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
+}
+
+li {
+  list-style: none;
+  height: 100%;
+  padding: 5px;
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+}
+
+li:hover {
+  background-color: rgb(22, 34, 34);
+}
+
+.font-size-24 {
+  font-size: 2rem;
+}
+
+.font-size-18 {
+  font-size: 22px;
+}
+svg {
+  fill : #fff
+}
+
+
+
+
+
 /*
 ! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
 */

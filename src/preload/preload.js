@@ -1,23 +1,21 @@
-console.log("Preload baby!");
+const { contextBridge, ipcRenderer } = require("electron");
 
-const { contextBridge } = require('electron');
+// contextBridge.exposeInMainWorld("versions", {
+//   ping: () => ipcRenderer.invoke("ping"),
+// we can also expose variables, not just functions
+// });
 
-const os = require('os');
-const path = require('path');
-
-contextBridge.exposeInMainWorld('os', {
+const os = require("os");
+const path = require("path");
+contextBridge.exposeInMainWorld("os", {
   homedir: () => os.homedir(),
 });
 
-contextBridge.exposeInMainWorld('path', {
-  join: (...args) => path.join(...args)
+contextBridge.exposeInMainWorld("path", {
+  join: (...args) => path.join(...args),
 });
 
-
-
-
-
-
+console.log("Preload baby!");
 
 // contextBridge.exposeInMainWorld('versions', {
 //   node: () => process.versions.node,
@@ -25,7 +23,6 @@ contextBridge.exposeInMainWorld('path', {
 //   electron: () => process.versions.electron,
 //   platform: () => process.platform,
 // });
-
 
 // contextBridge.exposeInMainWorld('os', {
 //   homedir: () => process.versions.node,

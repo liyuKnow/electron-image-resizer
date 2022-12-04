@@ -1,5 +1,6 @@
+const os = require("os");
 const path = require("path");
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 
 // const isDev = process.env.NODE_ENV !== 'production';
 const isDev = false;
@@ -13,10 +14,16 @@ function CreateMainWindow() {
     title: "Image Resize",
     minWidth: isDev ? 1000 : 500,
     minHeight: 600,
+    // titleBarStyle: "hidden",
+    // frame: false,
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
       preload: path.join(__dirname, "./preload/preload.js"),
     },
   });
+
+  ipcMain.handle("ping", () => os.homedir());
 
   // * isDev
   if (isDev) {
@@ -34,8 +41,6 @@ function CreateAboutWindow() {
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
-      contextIsolation: true,
-      nodeIntegration: true,
       preload: path.join(__dirname, "./preload/about_preload.js"),
     },
   });
@@ -66,16 +71,16 @@ app.on("window-all-closed", () => {
 const customMenuTemplate = [
   ...(isMac
     ? [
-      {
-        label: app.name,
-        submenu: [
-          {
-            label: "About",
-            click: CreateAboutWindow,
-          },
-        ],
-      },
-    ]
+        {
+          label: app.name,
+          submenu: [
+            {
+              label: "About",
+              click: CreateAboutWindow,
+            },
+          ],
+        },
+      ]
     : []),
   {
     label: "File",
@@ -95,15 +100,15 @@ const customMenuTemplate = [
   },
   ...(!isMac
     ? [
-      {
-        label: "Help",
-        submenu: [
-          {
-            label: "About",
-            click: CreateAboutWindow,
-          },
-        ],
-      },
-    ]
+        {
+          label: "Help",
+          submenu: [
+            {
+              label: "About",
+              click: CreateAboutWindow,
+            },
+          ],
+        },
+      ]
     : []),
 ];
