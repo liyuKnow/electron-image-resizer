@@ -1,6 +1,9 @@
 const os = require("os");
+const fs = require("fs");
 const path = require("path");
 const { app, BrowserWindow, Menu, ipcMain } = require("electron");
+
+const resizeImg = require("resize-img");
 
 // const isDev = process.env.NODE_ENV !== 'production';
 const isDev = false;
@@ -112,3 +115,14 @@ const customMenuTemplate = [
       ]
     : []),
 ];
+
+ipcMain.on("image:resize", (e, options) => {
+  options.dest = path.join(os.homedir, "image-resizer");
+  resizeImage(options);
+});
+
+async function resizeImage({ imgPath, width, height, dest }) {
+  try {
+    const newPath = "new path";
+  } catch (error) {}
+}
