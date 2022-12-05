@@ -56,6 +56,12 @@ function sendImage(e) {
   });
 }
 
+// catch the image done
+ipcRenderer.on("image:done", () => {
+  toastAlert("Image resized successfully!", "success");
+  console.log("Image resized successfully!", "success");
+});
+
 // make sure if file is image
 function isFileAcceptedImage(file) {
   const acceptedImageTypes = ["image/jpg", "image/jpeg", "image/png"];

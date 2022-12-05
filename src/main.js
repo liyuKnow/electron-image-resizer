@@ -11,9 +11,11 @@ const isDev = false;
 
 const isMac = process.platform === "darwin";
 
+let mainWindow;
+
 // ^ CREATE MAIN WINDOW
 function CreateMainWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     title: "Image Resize",
     minWidth: isDev ? 1000 : 500,
     minHeight: 600,
@@ -117,7 +119,7 @@ const customMenuTemplate = [
 ];
 
 ipcMain.on("image:resize", (e, options) => {
-  options.dest = path.join(os.homedir, "image-resizer");
+  options.dest = path.join(os.homedir(), "image-resizer");
   resizeImage(options);
 });
 
