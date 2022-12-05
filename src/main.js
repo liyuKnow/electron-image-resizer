@@ -1,7 +1,7 @@
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
-const { app, BrowserWindow, Menu, ipcMain } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain, shell } = require("electron");
 
 const resizeImg = require("resize-img");
 
@@ -123,6 +123,27 @@ ipcMain.on("image:resize", (e, options) => {
 
 async function resizeImage({ imgPath, width, height, dest }) {
   try {
-    const newPath = "new path";
-  } catch (error) {}
+    const newPath = await resizeImg(fs.readFileSync(imgPath), {
+      width: +width,
+      height: +height,
+    });
+
+    // Filename
+    const filename = path.basename(imgPath);
+
+    // Destination Folder
+    if (!fs.existsSync(dest)) {
+      fs.mkdirSync(dest);
+    }
+
+    // write fie
+    fs.writeFileSync(path.join(dest, filename), newPath);
+
+    // send success
+    mainWindow.webContents.send("Img:done");
+    // open destination folder
+    shell.openPath(dest);
+  } catch (error) {
+    console.log(error.message);
+  }
 }

@@ -1,5 +1,3 @@
-const { ipcRenderer } = require("electron");
-
 const form = document.querySelector("#img-form");
 const img = document.querySelector("#img");
 const outputPath = document.querySelector("#output-path");
@@ -36,8 +34,8 @@ function sendImage(e) {
 
   const width = widthInput.value;
   const height = heightInput.value;
-  const imgPath = img.files[o].path;
-
+  const imgPath = img.files[0].path;
+  console.log("I was here");
   if (!img.files[0]) {
     toastAlert(
       "Please select a valid image with types .jpeg, .jpg or .png!",
@@ -80,7 +78,7 @@ function toastAlert(message, alertType) {
 
 img.addEventListener("change", loadImage);
 
-form.addEventListener("change", sendImage);
+form.addEventListener("submit", sendImage);
 
 // ======================================================================================================
 
